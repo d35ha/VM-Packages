@@ -30,11 +30,21 @@ try {
   $executablePath = Join-Path $toolDir "${toolName}FM.exe" -Resolve
   VM-Install-Shortcut $toolName $category $executablePath
 
+  # Test if the passowrd is right before extracting the files requiring two 7z commands with
+  # the two options `t` and `x`.
+  $7zCommand = @'
+	cmd /c (7z t -pinfected "%1" || (
+		mshta vbscript:Execute^(
+			"msgbox ""The password is not """"infected"""" or the archive is corrupted !!"":close"
+		^) && call
+	)) && 7z x -pinfected "%1"
+'@ -replace "`t", "" -replace "`n", ""
+
   # Add 7z unzip with password "infected" to the right menu for the most common extensions.
   # 7z can unzip other file extensions like .docx but these don't likely use the infected password.
   $extensions = @(".7z", ".bzip2", ".gzip", ".tar", ".wim", ".xz", ".txz", ".zip", ".rar")
   foreach ($extension in $extensions) {
-    VM-Add-To-Right-Click-Menu $toolName 'unzip "infected"' "`"$7zExecutablePath`" x -pinfected `"%1`"" "$executablePath" -extension $extension
+    VM-Add-To-Right-Click-Menu $toolName 'unzip "infected"' $7zCommand $executablePath -extension $extension
     VM-Set-Open-With-Association $executablePath $extension
   }
 } catch {
