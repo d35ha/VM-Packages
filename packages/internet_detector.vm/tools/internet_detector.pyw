@@ -20,8 +20,7 @@ import winerror
 import winreg
 
 import threading
-import requests
-import urllib3
+import icmplib
 import signal
 import ctypes
 import time
@@ -30,12 +29,12 @@ import re
 
 # Define constants
 CHECK_INTERVAL = 2  # Seconds
-CONNECT_TEST_URL_AND_RESPONSES = {
-    "https://www.msftconnecttest.com/connecttest.txt": "Microsoft Connect Test",  # HTTPS Test #1
-    "http://www.google.com": "Google",  # HTTP Test
-    "https://www.wikipedia.com": "Wikipedia",  # HTTPS Test #2
-    "https://www.youtube.com": "YouTube",  # HTTPS Test #3
-}
+TEST_IPS = [
+    "8.8.8.8",  # Google
+    "8.8.4.4",  # Google
+    "1.1.1.1",  # Cloudflare
+    "1.0.0.1"   # Cloudflare
+]
 SPI_SETDESKWALLPAPER = 20
 SPIF_UPDATEINIFILE = 0x01
 SPIF_SENDWININICHANGE = 0x02
@@ -306,12 +305,12 @@ def extract_title(data):
         return None
 
 def check_internet():
-    for url, expected_response in CONNECT_TEST_URL_AND_RESPONSES.items():
+    for ip_address in TEST_IPS:
         try:
             # Perform internet connectivity tests
-            response = requests.get(url, timeout=5, verify=False)
-            if expected_response in (extract_title(response.text) or response.text):
-                print(f"Internet connectivity detected via URL: {url}")
+            ip_host = icmplib.ping(ip_address, count=1, timeout=CHECK_INTERVAL)
+            if ip_host.is_alive:
+                print(f"Internet connectivity detected via IP: {ip_address}")
                 return True
         except:
             pass
@@ -468,7 +467,6 @@ def main_loop():
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     default_transparency = get_transparency_effects()
 
     # Try to load default settings from the registry
