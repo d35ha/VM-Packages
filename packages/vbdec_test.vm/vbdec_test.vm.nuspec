@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>vbdec_test.vm</id>
+    <version>1.0.917</version>
+    <authors>vbGamer45, David Zimmer</authors>
+    <description>VBDec is a VB File format viewer, P-Code Disassembler and debugger.</description>
+    <dependencies>
+      <dependency id="common.vm" version="0.0.0.20250206" />
+    </dependencies>
+    <tags>Command and Control</tags>
+  </metadata>
+</package>
