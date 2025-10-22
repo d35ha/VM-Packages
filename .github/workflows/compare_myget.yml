@@ -25,7 +25,7 @@ jobs:
         uses: schneegans/dynamic-badges-action@e9a478b16159b4d31420099ba146cdc50f134483 # v1.7.0
         with:
           auth: ${{ secrets.REPO_TOKEN }}
-          gistID: 45ab8ae9228f481ed8bf7ed442779453
+          gistID: 6b327d35bc5a44f6ae6be95c48be4f8a
           filename: badge.svg
           label: 'MyGet mismatches'
           message: 69
