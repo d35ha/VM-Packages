@@ -26,7 +26,7 @@ jobs:
         with:
           auth: ${{ secrets.REPO_TOKEN }}
           gistID: 45ab8ae9228f481ed8bf7ed442779453
-          filename: myget_badge.svg
+          filename: badge.svg
           label: 'MyGet mismatches'
           message: 69
           valColorRange: ${{ env.mismatches }}
