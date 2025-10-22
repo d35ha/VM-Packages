@@ -70,4 +70,3 @@ jobs:
           minColorRange: 0
           invertColorRange: true
           valColorRange: ${{ env.failure }}
-          forceUpdate: true

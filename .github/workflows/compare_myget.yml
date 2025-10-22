@@ -36,3 +36,4 @@ jobs:
           maxColorRange: 1
           minColorRange: 0
           invertColorRange: true
+          forceUpdate: true
