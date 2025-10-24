@@ -25,6 +25,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          repository: mandiant/VM-Packages
       - name: Build and test all packages
         continue-on-error: true
         run: scripts/test/test_install.ps1 -all

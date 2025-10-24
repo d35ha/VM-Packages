@@ -13,6 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
+          repository: mandiant/VM-Packages
           # fetch all history for all branches
           fetch-depth: 0
       - name: Install dependencies
@@ -41,6 +42,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          repository: mandiant/VM-Packages
       - name: Get changed files
         id: files
         uses: Ana06/get-changed-files@25f79e676e7ea1868813e21465014798211fad8c # v2.3.0
