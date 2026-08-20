@@ -1,4 +1,4 @@
-name: Test
+name: Test NodeJS
 
 permissions:
   contents: read
@@ -8,9 +8,9 @@ on:
 
 jobs:
   setup:
-    runs-on: windows-2025
+    runs-on: windows-2022
     steps:
-      - name: Print Node version
+      - name: Print NodeJS version
         run: node -v
       - name: Checkout code
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
